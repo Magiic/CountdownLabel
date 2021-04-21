@@ -39,7 +39,7 @@ extension LTMorphingLabel {
                 char: char,
                 rect: self.previousRects[index],
                 alpha: CGFloat(1.0 - progress),
-                size: self.font.pointSize,
+                size: self.fontPointSize,
                 drawingProgress: CGFloat(progress))
         }
         
@@ -50,7 +50,7 @@ extension LTMorphingLabel {
                 char: char,
                 rect: self.newRects[index],
                 alpha: CGFloat(progress),
-                size: self.font.pointSize,
+                size: self.fontPointSize,
                 drawingProgress: CGFloat(1.0 - progress)
             )
         }
@@ -88,7 +88,7 @@ extension LTMorphingLabel {
                 height: charLimbo.rect.size.height
             )
             String(charLimbo.char).draw(in: rect, withAttributes: [
-                .font: self.font,
+                .font: self.fontOrDefault,
                 .foregroundColor: self.textColor.withAlphaComponent(fadeOutAlpha)
             ])
             let newImage = UIGraphicsGetImageFromCurrentImageContext()

@@ -60,7 +60,7 @@ extension LTMorphingLabel {
                 char: char,
                 rect: self.previousRects[index],
                 alpha: CGFloat(1.0 - progress),
-                size: self.font.pointSize,
+                size: self.fontPointSize,
                 drawingProgress: CGFloat(progress))
         }
         
@@ -68,9 +68,9 @@ extension LTMorphingLabel {
             char, index, progress in
             
             let currentFontSize = CGFloat(
-                LTEasing.easeOutQuint(progress, 0.0, Float(self.font.pointSize))
+                LTEasing.easeOutQuint(progress, 0.0, Float(self.fontPointSize))
             )
-            let yOffset = CGFloat(self.font.pointSize - currentFontSize)
+            let yOffset = CGFloat(self.fontPointSize - currentFontSize)
             
             return LTCharacterLimbo(
                 char: char,
@@ -89,7 +89,7 @@ extension LTMorphingLabel {
                 var charRect = limbo.rect
                 context!.saveGState()
                 let charCenterX = charRect.origin.x + (charRect.size.width / 2.0)
-                var charBottomY = charRect.origin.y + charRect.size.height - self.font.pointSize / 6
+                var charBottomY = charRect.origin.y + charRect.size.height - self.fontPointSize / 6
                 var charColor: UIColor = self.textColor
                 
                 // Fall down if drawingProgress is more than 50%
@@ -115,7 +115,7 @@ extension LTMorphingLabel {
                 
                 charRect = CGRect(
                     x: charRect.size.width / -2.0,
-                    y: charRect.size.height * -1.0 + self.font.pointSize / 6,
+                    y: charRect.size.height * -1.0 + self.fontPointSize / 6,
                     width: charRect.size.width,
                     height: charRect.size.height)
                 context!.translateBy(x: charCenterX, y: charBottomY)
@@ -134,7 +134,7 @@ extension LTMorphingLabel {
                 context!.rotate(by: rotation * CGFloat(Double.pi) / 180.0)
                 let s = String(limbo.char)
                 let attributes: [NSAttributedString.Key: Any] = [
-                    .font: self.font.withSize(limbo.size),
+                    .font: self.fontOrDefault.withSize(limbo.size),
                     .foregroundColor: charColor
                 ]
                 s.draw(in: charRect, withAttributes: attributes)

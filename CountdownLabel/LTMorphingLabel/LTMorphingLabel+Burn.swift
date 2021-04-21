@@ -50,8 +50,8 @@ extension LTMorphingLabel {
                 height: maskedHeight
             )
             String(charLimbo.char).draw(in: rect, withAttributes: [
-                .font: self.font,
-                .foregroundColor: self.textColor
+                .font: self.fontOrDefault,
+                .foregroundColor: self.textColor ?? UIColor.black
                 ])
             let newImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
@@ -90,7 +90,7 @@ extension LTMorphingLabel {
                 char: char,
                 rect: self.previousRects[index],
                 alpha: CGFloat(1.0 - progress),
-                size: self.font.pointSize,
+                size: self.fontPointSize,
                 drawingProgress: 0.0
             )
         }
@@ -117,9 +117,9 @@ extension LTMorphingLabel {
                         layer.renderMode = CAEmitterLayerRenderMode.oldestFirst
                         layer.emitterMode = CAEmitterLayerEmitterMode.outline
                         cell.emissionLongitude = CGFloat(Double.pi / 2)
-                        cell.scale = self.font.pointSize / 160.0
-                        cell.scaleSpeed = self.font.pointSize / 100.0
-                        cell.birthRate = Float(self.font.pointSize)
+                    cell.scale = self.fontPointSize / 160.0
+                    cell.scaleSpeed = self.fontPointSize / 100.0
+                    cell.birthRate = Float(self.fontPointSize)
                         cell.emissionLongitude = CGFloat(arc4random_uniform(30))
                         cell.emissionRange = CGFloat(Double.pi / 4)
                         cell.alphaSpeed = self.morphingDuration * -3.0
@@ -145,10 +145,10 @@ extension LTMorphingLabel {
                         layer.renderMode = CAEmitterLayerRenderMode.additive
                         layer.emitterMode = CAEmitterLayerEmitterMode.volume
                         cell.emissionLongitude = CGFloat(Double.pi / 2)
-                        cell.scale = self.font.pointSize / 40.0
-                        cell.scaleSpeed = self.font.pointSize / 100.0
+                    cell.scale = self.fontPointSize / 40.0
+                    cell.scaleSpeed = self.fontPointSize / 100.0
                         cell.birthRate =
-                            Float(self.font.pointSize)
+                            Float(self.fontPointSize)
                             / Float(arc4random_uniform(10) + 10)
                         cell.emissionLongitude = 0
                         cell.emissionRange = CGFloat(Double.pi / 4)
@@ -168,7 +168,7 @@ extension LTMorphingLabel {
                 char: char,
                 rect: self.newRects[index],
                 alpha: 1.0,
-                size: self.font.pointSize,
+                size: self.fontPointSize,
                 drawingProgress: CGFloat(progress)
             )
         }

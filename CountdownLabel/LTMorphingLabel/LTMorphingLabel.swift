@@ -108,8 +108,16 @@ typealias LTMorphingSkipFramesClosure =
     #else
     let presentingInIB = false
     #endif
-    
-    override open var font: UIFont! {
+
+    open var fontOrDefault: UIFont {
+        font ?? UIFont.systemFont(ofSize: 15)
+    }
+
+    open var fontPointSize: CGFloat {
+        fontOrDefault.pointSize
+    }
+
+    override open var font: UIFont? {
         get {
             return super.font ?? UIFont.systemFont(ofSize: 15)
         }
@@ -159,8 +167,8 @@ typealias LTMorphingSkipFramesClosure =
     
     open override func setNeedsLayout() {
         super.setNeedsLayout()
-        previousRects = rectsOfEachCharacter(previousText, withFont: font)
-        newRects = rectsOfEachCharacter(text ?? "", withFont: font)
+        previousRects = rectsOfEachCharacter(previousText, withFont: fontOrDefault)
+        newRects = rectsOfEachCharacter(text ?? "", withFont: fontOrDefault)
     }
     
     override open var bounds: CGRect {
@@ -310,7 +318,7 @@ extension LTMorphingLabel {
             let oriX = Float(currentRect.origin.x)
             var newX = Float(currentRect.origin.x)
             let diffResult = diffResults!.0[index]
-            var currentFontSize: CGFloat = font.pointSize
+            var currentFontSize: CGFloat = self.fontPointSize
             var currentAlpha: CGFloat = 1.0
             
             switch diffResult {
@@ -342,15 +350,15 @@ extension LTMorphingLabel {
                     // And scale it by default
                     let fontEase = CGFloat(
                         LTEasing.easeOutQuint(
-                            progress, 0, Float(font.pointSize)
+                            progress, 0, Float(self.fontPointSize)
                         )
                     )
                     // For emojis
-                    currentFontSize = max(0.0001, font.pointSize - fontEase)
+                    currentFontSize = max(0.0001, self.fontPointSize - fontEase)
                     currentAlpha = CGFloat(1.0 - progress)
                     currentRect = previousRects[index].offsetBy(
                         dx: 0,
-                        dy: CGFloat(font.pointSize - currentFontSize)
+                        dy: CGFloat(self.fontPointSize - currentFontSize)
                     )
                 }
             }
@@ -371,7 +379,7 @@ extension LTMorphingLabel {
             
             let currentRect = newRects[index]
             var currentFontSize = CGFloat(
-                LTEasing.easeOutQuint(progress, 0, Float(font.pointSize))
+                LTEasing.easeOutQuint(progress, 0, Float(self.fontPointSize))
             )
             
             if let closure = effectClosures[
@@ -380,12 +388,12 @@ extension LTMorphingLabel {
                     return closure(char, index, progress)
             } else {
                 currentFontSize = CGFloat(
-                    LTEasing.easeOutQuint(progress, 0.0, Float(font.pointSize))
+                    LTEasing.easeOutQuint(progress, 0.0, Float(self.fontPointSize))
                 )
                 // For emojis
                 currentFontSize = max(0.0001, currentFontSize)
                 
-                let yOffset = CGFloat(font.pointSize - currentFontSize)
+                let yOffset = CGFloat(self.fontPointSize - currentFontSize)
                 
                 return LTCharacterLimbo(
                     char: char,
@@ -497,7 +505,7 @@ extension LTMorphingLabel {
                     .foregroundColor: textColor.withAlphaComponent(charLimbo.alpha)
                 ]
 
-                if let font = UIFont(name: font.fontName, size: charLimbo.size) {
+                if let font = UIFont(name: fontOrDefault.fontName, size: charLimbo.size) {
                     attrs[.font] = font
                 }
                 let s = String(charLimbo.char)

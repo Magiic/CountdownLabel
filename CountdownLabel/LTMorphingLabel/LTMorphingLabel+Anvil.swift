@@ -50,8 +50,8 @@ extension LTMorphingLabel {
                         y: centerRect.origin.y + centerRect.size.height / 1.3)
                     layer.renderMode = CAEmitterLayerRenderMode.additive
                     cell.emissionLongitude = CGFloat(Double.pi / 2)
-                    cell.scale = self.font.pointSize / 90.0
-                    cell.scaleSpeed = self.font.pointSize / 130
+                    cell.scale = self.fontPointSize / 90.0
+                    cell.scaleSpeed = self.fontPointSize / 130
                     cell.birthRate = 60
                     cell.velocity = CGFloat(80 + Int(arc4random_uniform(60)))
                     cell.velocityRange = 100
@@ -75,8 +75,8 @@ extension LTMorphingLabel {
                         y: centerRect.origin.y + centerRect.size.height / 1.3)
                     layer.renderMode = CAEmitterLayerRenderMode.additive
                     cell.emissionLongitude = CGFloat(Double.pi / 2)
-                    cell.scale = self.font.pointSize / 90.0
-                    cell.scaleSpeed = self.font.pointSize / 130
+                    cell.scale = self.fontPointSize / 90.0
+                    cell.scaleSpeed = self.fontPointSize / 130
                     cell.birthRate = 60
                     cell.velocity = CGFloat(80 + Int(arc4random_uniform(60)))
                     cell.velocityRange = 100
@@ -95,15 +95,15 @@ extension LTMorphingLabel {
                 duration: 0.6
                 ) { (layer, cell) in
                     layer.emitterSize = CGSize(
-                        width: self.font.pointSize,
+                        width: self.fontPointSize,
                         height: 1
                     )
                     layer.emitterPosition = CGPoint(
                         x: centerRect.origin.x,
                         y: centerRect.origin.y + centerRect.size.height / 1.3
                     )
-                    cell.scale = self.font.pointSize / 90.0
-                    cell.scaleSpeed = self.font.pointSize / 40.0
+                    cell.scale = self.fontPointSize / 90.0
+                    cell.scaleSpeed = self.fontPointSize / 40.0
                     cell.color = self.textColor.cgColor
                     cell.birthRate = 60
                     cell.velocity = 350
@@ -121,14 +121,14 @@ extension LTMorphingLabel {
                 duration: 0.6
                 ) { (layer, cell) in
                     layer.emitterSize = CGSize(
-                        width: self.font.pointSize,
+                        width: self.fontPointSize,
                         height: 1
                     )
                     layer.emitterPosition = CGPoint(
                         x: centerRect.origin.x,
                         y: centerRect.origin.y + centerRect.size.height / 1.3)
-                    cell.scale = self.font.pointSize / 90.0
-                    cell.scaleSpeed = self.font.pointSize / 40.0
+                    cell.scale = self.fontPointSize / 90.0
+                    cell.scaleSpeed = self.fontPointSize / 40.0
                     cell.color = self.textColor.cgColor
                     cell.birthRate = 60
                     cell.velocity = 350
@@ -146,14 +146,14 @@ extension LTMorphingLabel {
                 duration: 0.6
                 ) { (layer, cell) in
                     layer.emitterSize = CGSize(
-                        width: self.font.pointSize,
+                        width: self.fontPointSize,
                         height: 1
                     )
                     layer.emitterPosition = CGPoint(
                         x: centerRect.origin.x,
                         y: centerRect.origin.y + centerRect.size.height / 1.3)
-                    cell.scale = self.font.pointSize / 90.0
-                    cell.scaleSpeed = self.font.pointSize / 40.0
+                    cell.scale = self.fontPointSize / 90.0
+                    cell.scaleSpeed = self.fontPointSize / 40.0
                     cell.color = self.textColor.cgColor
                     cell.birthRate = 60
                     cell.velocity = 250
@@ -185,7 +185,7 @@ extension LTMorphingLabel {
                 char: char,
                 rect: self.previousRects[index],
                 alpha: CGFloat(1.0 - progress),
-                size: self.font.pointSize,
+                size: self.fontPointSize,
                 drawingProgress: 0.0)
         }
         
@@ -256,7 +256,7 @@ extension LTMorphingLabel {
                 char: char,
                 rect: rect,
                 alpha: CGFloat(self.morphingProgress),
-                size: self.font.pointSize,
+                size: self.fontPointSize,
                 drawingProgress: CGFloat(progress)
             )
         }

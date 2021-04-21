@@ -50,8 +50,8 @@ extension LTMorphingLabel {
                 height: maskedHeight
             )
             String(charLimbo.char).draw(in: rect, withAttributes: [
-                .font: self.font,
-                .foregroundColor: self.textColor
+                .font: self.fontOrDefault,
+                .foregroundColor: self.textColor ?? UIColor.black
             ])
             guard let newImage = UIGraphicsGetImageFromCurrentImageContext() else {
                 return (UIImage(), CGRect.zero)
@@ -98,7 +98,7 @@ extension LTMorphingLabel {
                 char: char,
                 rect: self.previousRects[index],
                 alpha: CGFloat(1.0 - progress),
-                size: self.font.pointSize,
+                size: self.fontPointSize,
                 drawingProgress: 0.0)
         }
         
@@ -123,11 +123,11 @@ extension LTMorphingLabel {
                         )
                         layer.renderMode = CAEmitterLayerRenderMode.additive
                         cell.emissionLongitude = CGFloat(Double.pi / 2.0)
-                        cell.scale = self.font.pointSize / 300.0
-                        cell.scaleSpeed = self.font.pointSize / 300.0 * -1.5
+                        cell.scale = self.fontPointSize / 300.0
+                        cell.scaleSpeed = self.fontPointSize / 300.0 * -1.5
                         cell.color = self.textColor.cgColor
                         cell.birthRate =
-                            Float(self.font.pointSize)
+                            Float(self.fontPointSize)
                             * Float(arc4random_uniform(7) + 3)
                     }.update { (layer, _) in
                         layer.emitterPosition = emitterPosition
@@ -138,7 +138,7 @@ extension LTMorphingLabel {
                 char: char,
                 rect: self.newRects[index],
                 alpha: CGFloat(self.morphingProgress),
-                size: self.font.pointSize,
+                size: self.fontPointSize,
                 drawingProgress: CGFloat(progress)
             )
         }
