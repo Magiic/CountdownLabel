@@ -8,17 +8,18 @@
 
 import Foundation
 
-// http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js
-// t = currentTime
-// b = beginning
-// c = change
-// d = duration
+precedencegroup PowerPrecedence { higherThan: MultiplicationPrecedence }
+infix operator ^^ : PowerPrecedence
+func ^^ (radix: Float, power: Float) -> Float {
+    Float(pow(Double(radix), Double(power)))
+}
+
 
 public struct LTEasing {
     
     public static func easeOutQuint(_ t: Float, _ b: Float, _ c: Float, _ d: Float = 1.0) -> Float {
         return {
-            let tmp = ($0 * 5) + 1.0
+            let tmp = ($0 ^^ 5) + 1.0
             return c * tmp + b
             }(t / d - 1.0)
     }
